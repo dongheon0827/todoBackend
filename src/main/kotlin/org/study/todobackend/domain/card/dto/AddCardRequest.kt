@@ -5,4 +5,5 @@ data class AddCardRequest(
     val description: String?,
     val date: String,
     val name: String,
+    val status: Boolean
 )
