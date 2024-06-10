@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.study.todobackend.domain.card.dto.AddCardRequest
 import org.study.todobackend.domain.card.dto.CardResponse
+import org.study.todobackend.domain.card.dto.CardResponseWithCommentDto
 import org.study.todobackend.domain.card.dto.UpdateCardRequest
 import org.study.todobackend.domain.card.model.CardModel
+import org.study.todobackend.domain.card.model.toCardModelWithCommentDtoResponse
 import org.study.todobackend.domain.card.model.toResponse
 import org.study.todobackend.domain.card.repository.CardRepository
 import org.study.todobackend.domain.comment.dto.AddCommentRequest
@@ -54,13 +56,13 @@ class TodoService(
 
     fun getAllCardList(todoId: Long): List<CardResponse> {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("Todo", todoId)
-        val comments = commentRepository.findAllByTodoId(todoId).map { it.toResponse() }
         return todo.cards.map { it.toResponse() }
     }
 
-    fun getCardById(todoId: Long, cardId: Long): CardResponse {
+    fun getCardById(todoId: Long, cardId: Long): CardResponseWithCommentDto {
         val card = cardRepository.findByTodoIdAndId(todoId, cardId) ?: throw ModelNotFoundException("Card", cardId)
-        return card.toResponse()
+        val comments = commentRepository.findAllByTodoId(todoId).map { it.toResponse() }
+        return card.toCardModelWithCommentDtoResponse(comments)
     }
 
     @Transactional
