@@ -31,7 +31,11 @@ class CommentController(private val todoService: TodoService) {
     }
 
     @DeleteMapping("/{commentId}")
-    fun removeComment(@PathVariable todoId: Long, @PathVariable cardId: Long, @PathVariable commentId: Long): ResponseEntity<Unit> {
+    fun removeComment(
+        @PathVariable todoId: Long,
+        @PathVariable cardId: Long,
+        @PathVariable commentId: Long
+    ): ResponseEntity<Unit> {
         todoService.removeComment(todoId, cardId, commentId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }

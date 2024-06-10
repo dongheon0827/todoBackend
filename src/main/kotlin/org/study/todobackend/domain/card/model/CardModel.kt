@@ -39,14 +39,6 @@ class CardModel(
         status = true
     }
 
-    fun isComplete(): Boolean {
-        return status == true
-    }
-
-    fun isIncomplete(): Boolean {
-        return status == false
-    }
-
     fun addComment(comment: CommentModel) {
         comments.add(comment)
     }
