@@ -5,4 +5,5 @@ import org.study.todobackend.domain.comment.model.CommentModel
 
 interface CommentRepository : JpaRepository<CommentModel, Long> {
     fun findByCardIdAndId(cardId: Long, id: Long): CommentModel?
+    fun findAllByTodoId(todoId: Long): List<CommentModel>
 }

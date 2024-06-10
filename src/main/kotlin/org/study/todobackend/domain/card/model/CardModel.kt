@@ -2,6 +2,8 @@ package org.study.todobackend.domain.card.model
 
 import jakarta.persistence.*
 import org.study.todobackend.domain.card.dto.CardResponse
+import org.study.todobackend.domain.card.dto.CardResponseWithCommentDto
+import org.study.todobackend.domain.comment.dto.CommentResponse
 import org.study.todobackend.domain.comment.model.CommentModel
 import org.study.todobackend.domain.todo.model.TodoModel
 
@@ -62,5 +64,19 @@ fun CardModel.toResponse(): CardResponse {
         date = date,
         name = name,
         status = status
+    )
+}
+
+fun CardModel.toCardModelWithCommentDtoResponse(
+    commentResponse: List<CommentResponse>
+): CardResponseWithCommentDto {
+    return CardResponseWithCommentDto(
+        id = id!!,
+        title = title,
+        description = description,
+        date = date,
+        name = name,
+        status = status,
+        comments = commentResponse
     )
 }
